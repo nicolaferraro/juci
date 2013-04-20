@@ -1,8 +1,8 @@
-package it.nerdammer.nibbio.juci.rs;
+package it.nerdammer.juci.rs;
 
-import it.nerdammer.nibbio.juci.Engine;
-import it.nerdammer.nibbio.juci.EngineFactory;
-import it.nerdammer.nibbio.juci.EnginePreferences;
+import it.nerdammer.juci.Engine;
+import it.nerdammer.juci.EngineFactory;
+import it.nerdammer.juci.EnginePreferences;
 
 import java.util.Collection;
 import java.util.Collections;

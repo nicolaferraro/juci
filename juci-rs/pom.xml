@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>it.nerdammer.nibbio</groupId>
+  <groupId>it.nerdammer</groupId>
   <artifactId>juci-rs</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
@@ -36,7 +36,7 @@
 	</dependency>
     
     <dependency>
-		<groupId>it.nerdammer.nibbio</groupId>
+		<groupId>it.nerdammer</groupId>
 		<artifactId>juci</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>

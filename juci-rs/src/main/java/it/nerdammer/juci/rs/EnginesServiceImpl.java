@@ -1,26 +1,16 @@
-package it.nerdammer.nibbio.juci.rs;
+package it.nerdammer.juci.rs;
+
+import it.nerdammer.juci.Engine;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import it.nerdammer.nibbio.juci.Engine;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-
-@Path("/engines")
-public class EnginesService {
+public class EnginesServiceImpl implements EnginesService {
 
 	
-	@GET
-	@Path("/bestmove/{engine}")
-	@Produces("text/plain")
-	public String computeBestMove(@PathParam("engine") String engineName, @QueryParam("status") String status) {
+	public String computeBestMove(String engineName, String status) {
 		
 		Engine engine = EnginesManager.getInstance().getEngine(engineName);
 		if(engine==null) {
@@ -39,9 +29,7 @@ public class EnginesService {
 		return reply;
 	}
 	
-	@GET
-	@Path("/list")
-	@Produces("text/plain")
+	
 	public String listEngines() {
 		Collection<String> engines = EnginesManager.getInstance().getEngineNames();
 		return engines.toString();

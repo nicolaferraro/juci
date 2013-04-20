@@ -1,4 +1,8 @@
-package it.nerdammer.nibbio.juci;
+package it.nerdammer.juci;
+
+import it.nerdammer.juci.Engine;
+import it.nerdammer.juci.EngineFactory;
+import it.nerdammer.juci.EnginePreferences;
 
 import java.util.LinkedList;
 import java.util.List;
