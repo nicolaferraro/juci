@@ -7,10 +7,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class EnginesServiceImpl implements EnginesService {
+import org.apache.log4j.Logger;
 
+public class EnginesServiceImpl implements EnginesService {
+	
+	private Logger logger = Logger.getLogger(EnginesServiceImpl.class);
 	
 	public String computeBestMove(String engineName, String status) {
+		
+		logger.debug("Computing best move for engine " + engineName);
+		logger.debug("Status: " + status);
 		
 		Engine engine = EnginesManager.getInstance().getEngine(engineName);
 		if(engine==null) {
@@ -25,8 +31,16 @@ public class EnginesServiceImpl implements EnginesService {
 			}
 		}
 		
-		String reply = engine.computeBestMove(moves);
-		return reply;
+		try {
+			String reply = engine.computeBestMove(moves);
+			
+			logger.info("Best move: " + reply);
+			
+			return reply;
+		} catch(RuntimeException e) {
+			logger.error("Error computing the best move", e);
+			throw e;
+		}
 	}
 	
 	
