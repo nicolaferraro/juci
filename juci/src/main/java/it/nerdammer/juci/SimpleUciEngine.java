@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 class SimpleUciEngine implements Engine {
@@ -61,6 +62,13 @@ class SimpleUciEngine implements Engine {
 			write("uci");
 		
 			readUntil("uciok");
+			
+			Map<String, String> options = preferences.getOptions();
+			for(String name : options.keySet()) {
+				String value = options.get(name);
+				
+				write("setoption name " + name + " value " + value);
+			}
 			
 			write("isready");
 			
