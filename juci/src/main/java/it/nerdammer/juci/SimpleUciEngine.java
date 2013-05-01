@@ -9,7 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import org.apache.log4j.Logger;
+
 class SimpleUciEngine implements Engine {
+	
+	private static Logger logger = Logger.getLogger(SimpleUciEngine.class);
 	
 	private String command;
 	
@@ -41,6 +45,14 @@ class SimpleUciEngine implements Engine {
 	
 	private synchronized void disconnect() {
 		try {
+			try {
+				int exitValue = process.exitValue();
+				logger.fatal("Process already terminated with exit code " + exitValue);
+			} catch(IllegalThreadStateException e) {
+				logger.debug("Process needs to be terminated");
+			}
+			
+			logger.debug("Terminating the process");
 			process.destroy();
 			
 		} catch(Exception e) {
@@ -59,6 +71,7 @@ class SimpleUciEngine implements Engine {
 			
 			skipLines(1);
 			
+			logger.debug("Computing best move");
 			write("uci");
 		
 			readUntil("uciok");
@@ -86,8 +99,11 @@ class SimpleUciEngine implements Engine {
 			
 			String res = readStartsWith("bestmove");
 			
+			logger.debug("Best move found: " + res);
+			
 			return getToken(res, 1);
 		} catch(Exception e) {
+			logger.error("Best move not found, exception");
 			throw new IllegalStateException(e);
 		} finally {
 			disconnect();
@@ -96,7 +112,9 @@ class SimpleUciEngine implements Engine {
 	
 	private String read() {
 		try {
-			return fromEngine.readLine();
+			String read = fromEngine.readLine();
+			logger.debug("UCI-READ : " + read);
+			return read;
 		} catch(IOException e) {
 			throw new IllegalStateException("Unable to read from stream", e);
 		}
@@ -151,6 +169,7 @@ class SimpleUciEngine implements Engine {
 	}
 	
 	private void write(String command) {
+		logger.debug("UCI-WRITE: " + command);
 		toEngine.println(command);
 		toEngine.flush();
 	}
